@@ -8,11 +8,18 @@
 mkdir -p Genypterus_blacodes
 
 # Descargar secuencias de NCBI 
-curl -s "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&rettype=fasta&id=315019161,298289615,194338405,307591043,315019159" > Genypterus_blacodes/g_blacodes.fasta
+curl -s "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&rettype=fasta&id=315019161" > Genypterus_blacodes/g_blacodes1.fasta
+curl -s "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&rettype=fasta&id=298289615" > Genypterus_blacodes/g_blacodes2.fasta
+curl -s "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&rettype=fasta&id=194338405" > Genypterus_blacodes/g_blacodes3.fasta
+curl -s "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&rettype=fasta&id=307591043" > Genypterus_blacodes/g_blacodes4.fasta
+curl -s "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&rettype=fasta&id=315019159" > Genypterus_blacodes/g_blacodes5.fasta
+cat Genypterus_blacodes/g_blacodes*.fasta >> Genypterus_blacodes/g_blacodes.fasta
 
 # Revisar secuencias descargadas
 grep ">" Genypterus_blacodes/g_blacodes.fasta
 
-# Buscar y contar "TGCA" en las secuencias
-grep -c "TGCA" Genypterus_blacodes/g_blacodes.fasta
-# la secuencia se encuentra 13 veces en el archivo
+# Buscar y contar "TGCA" en cada una de las secuencias
+for i in g_blacodes*.fasta; do
+grep -c "TGCA" Genypterus_blacodes/$i
+done
+# la secuencia se encuentra 11 veces en el archivo; 2, 3, 3, 3 y 0 veces respectivamente en cada una de las secuencias descargadas "g_blacodes[1-5].fasta"
